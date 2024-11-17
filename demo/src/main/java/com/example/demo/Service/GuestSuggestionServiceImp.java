@@ -1,27 +1,30 @@
 package com.example.demo.Service;
 
 //import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
+import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
+import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
 import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GuestSuggestionServiceImp implements GuestSuggestionService{
-//    private GuestSuggestionRepository guestSuggestionRepository;
+    private final GuestSuggestionRepository guestSuggestionRepository;
 
-//    public GuestSuggestionServiceImp(GuestSuggestionRepository guestSuggestionRepository) {
-//        this.guestSuggestionRepository = guestSuggestionRepository;
-//    }
-
-
-    public GuestSuggestionServiceImp() {
+    public GuestSuggestionServiceImp(GuestSuggestionRepository guestSuggestionRepository) {
+        this.guestSuggestionRepository = guestSuggestionRepository;
     }
 
     @Override
-    public String addSuggestion(String newSuggestion){
+    public GuestSuggestionEntity addSuggestion(String newSuggestion, String rate){
         if (!newSuggestion.isEmpty()){
-            String returnValue = "Saved suggestion\nSuggestion: " + newSuggestion;
-            System.out.println(returnValue);
-            return returnValue;
+
+            GuestSuggestionEntity guestSuggestionEntity = new GuestSuggestionEntity();
+            guestSuggestionEntity.setSuggestionText(newSuggestion);
+            guestSuggestionEntity.setRate(rate);
+
+            guestSuggestionEntity = guestSuggestionRepository.save(guestSuggestionEntity);
+
+            return guestSuggestionEntity;
         }
         else{
             System.out.println("Incorrect param.");

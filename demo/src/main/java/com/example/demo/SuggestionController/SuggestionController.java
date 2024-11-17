@@ -1,12 +1,11 @@
 package com.example.demo.SuggestionController;
 
+import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
 import com.example.demo.Service.GuestSuggestionService;
+import com.example.demo.bo.CreateSuggestionRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -18,11 +17,15 @@ public class SuggestionController {
         this.guestSuggestionService = guestSuggestionService;
     }
 
-    //works     -> Post: http://localhost:8080/api/suggestion?suggestion=sd
-    //doesnt    -> Post: http://localhost:8080/api/suggestion?suggestion
+
+    //Post: http://localhost:8080/api/suggestion
+//    {
+//        "suggestion":"olsen is here again", "rate":"This is a rate"
+//    }
+
     @PostMapping("/suggestion")
-    public ResponseEntity<String> printAndProcessSuggestion(@RequestParam(required = false, defaultValue = "") String suggestion) {
-        String response = guestSuggestionService.addSuggestion(suggestion);
+    public ResponseEntity<GuestSuggestionEntity> printAndProcessSuggestion(@RequestBody(required = false)CreateSuggestionRequest newRequest) {
+        GuestSuggestionEntity response = guestSuggestionService.addSuggestion(newRequest.getSuggestion(), newRequest.getRate());
 
         // Check if the response is not null (indicating a successful creation)
         if (response != null) {
