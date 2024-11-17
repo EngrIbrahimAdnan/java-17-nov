@@ -12,4 +12,7 @@ public interface GuestSuggestionService {
 
     List<GuestSuggestionEntity> findAll();
 
+    List<GuestSuggestionEntity> getOnlyCreate();
+    List<GuestSuggestionEntity> getOnlyRemove();
+
 }

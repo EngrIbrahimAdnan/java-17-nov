@@ -45,4 +45,18 @@ public class GuestSuggestionServiceImp implements GuestSuggestionService {
     public List<GuestSuggestionEntity> findAll() {
         return guestSuggestionRepository.findAll();
     }
+
+    @Override
+    public List<GuestSuggestionEntity> getOnlyCreate(){
+        return guestSuggestionRepository.findByStatus(SuggestionStatus.CREATE);
+    }
+
+    @Override
+    public List<GuestSuggestionEntity> getOnlyRemove(){
+        return guestSuggestionRepository.findByStatus(SuggestionStatus.REMOVE);
+    }
+//    List<GuestSuggestionEntity> getOnlyRemove();
+
 }
+
+

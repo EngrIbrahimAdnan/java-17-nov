@@ -67,5 +67,41 @@ public class SuggestionController {
         }
     }
 
+    @GetMapping("/getcreate")
+    public ResponseEntity<List<GuestSuggestionEntity>> getCreateSuggestions() {
+        List<GuestSuggestionEntity> response = guestSuggestionService.getOnlyCreate();
+
+        // Check if the response is not null (indicating a successful creation)
+        if (response != null) {
+
+            // Return a 201 Created status code along with the created user data
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } else {
+            // Handle the case where the creation was not successful (e.g., validation failed)
+            // You can return a different status code or error message as needed
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+
+    @GetMapping("/getremove")
+    public ResponseEntity<List<GuestSuggestionEntity>> getRemoveSuggestions() {
+        List<GuestSuggestionEntity> response = guestSuggestionService.getOnlyRemove();
+
+        // Check if the response is not null (indicating a successful creation)
+        if (response != null) {
+
+            // Return a 201 Created status code along with the created user data
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } else {
+            // Handle the case where the creation was not successful (e.g., validation failed)
+            // You can return a different status code or error message as needed
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+
 
 }
