@@ -3,6 +3,7 @@ package com.example.demo.Service;
 //import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
 
 import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
+import com.example.demo.GuestSuggestionEntity.SuggestionStatus;
 import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
 import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
 import org.springframework.stereotype.Service;
@@ -18,19 +19,20 @@ public class GuestSuggestionServiceImp implements GuestSuggestionService {
     }
 
     @Override
-    public SuggestionProcessor addSuggestion(String newSuggestion, String rate) {
+    public SuggestionProcessor addSuggestion(String newSuggestion, String rate, SuggestionStatus suggestionStatus) {
         if (!newSuggestion.isEmpty()) {
 
-            SuggestionProcessor suggestionProcessor = (lambdaSuggestion, lambdaRate) -> {
+            SuggestionProcessor suggestionProcessor = (lambdaSuggestion, lambdaRate, lambdaStatus) -> {
                 GuestSuggestionEntity guestSuggestionEntity = new GuestSuggestionEntity();
                 guestSuggestionEntity.setSuggestionText(lambdaSuggestion);
                 guestSuggestionEntity.setRate(lambdaRate);
+                guestSuggestionEntity.setStatus(lambdaStatus);
 
                 guestSuggestionRepository.save(guestSuggestionEntity);
 
             };
 
-            suggestionProcessor.suggestText(newSuggestion,rate);
+            suggestionProcessor.suggestText(newSuggestion,rate, suggestionStatus);
             return suggestionProcessor;
 
         } else {

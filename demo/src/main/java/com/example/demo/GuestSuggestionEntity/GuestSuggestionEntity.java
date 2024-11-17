@@ -17,6 +17,18 @@ public class GuestSuggestionEntity  {
     @Column(name="suggestion", nullable = false)
     private String suggestionText;
 
+
+    @Enumerated(EnumType.STRING) // Use STRING mapping
+    private SuggestionStatus status;
+
+    public SuggestionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SuggestionStatus status) {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

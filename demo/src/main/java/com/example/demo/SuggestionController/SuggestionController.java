@@ -1,6 +1,7 @@
 package com.example.demo.SuggestionController;
 
 import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
+import com.example.demo.GuestSuggestionEntity.SuggestionStatus;
 import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
 import com.example.demo.Service.GuestSuggestionService;
 import com.example.demo.bo.CreateSuggestionRequest;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.List;
 
 @RestController
@@ -28,7 +31,10 @@ public class SuggestionController {
 
     @PostMapping("/suggestion")
     public ResponseEntity<String> printAndProcessSuggestion(@RequestBody(required = false)CreateSuggestionRequest newRequest) {
-        SuggestionProcessor response = guestSuggestionService.addSuggestion(newRequest.getSuggestion(), newRequest.getRate());
+        SuggestionProcessor response = guestSuggestionService.addSuggestion(newRequest.getSuggestion(), newRequest.getRate(), newRequest.getSuggestionStatus());
+
+
+
 
         // Check if the response is not null (indicating a successful creation)
         if (response != null) {
