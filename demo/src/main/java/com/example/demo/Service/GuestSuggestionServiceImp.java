@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 //import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
+
 import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
 import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
 import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GuestSuggestionServiceImp implements GuestSuggestionService{
+public class GuestSuggestionServiceImp implements GuestSuggestionService {
     private final GuestSuggestionRepository guestSuggestionRepository;
 
     public GuestSuggestionServiceImp(GuestSuggestionRepository guestSuggestionRepository) {
@@ -17,25 +18,29 @@ public class GuestSuggestionServiceImp implements GuestSuggestionService{
     }
 
     @Override
-    public GuestSuggestionEntity addSuggestion(String newSuggestion, String rate){
-        if (!newSuggestion.isEmpty()){
+    public SuggestionProcessor addSuggestion(String newSuggestion, String rate) {
+        if (!newSuggestion.isEmpty()) {
 
-            GuestSuggestionEntity guestSuggestionEntity = new GuestSuggestionEntity();
-            guestSuggestionEntity.setSuggestionText(newSuggestion);
-            guestSuggestionEntity.setRate(rate);
+            SuggestionProcessor suggestionProcessor = (lambdaSuggestion, lambdaRate) -> {
+                GuestSuggestionEntity guestSuggestionEntity = new GuestSuggestionEntity();
+                guestSuggestionEntity.setSuggestionText(lambdaSuggestion);
+                guestSuggestionEntity.setRate(lambdaRate);
 
-            guestSuggestionEntity = guestSuggestionRepository.save(guestSuggestionEntity);
+                guestSuggestionEntity = guestSuggestionRepository.save(guestSuggestionEntity);
 
-            return guestSuggestionEntity;
-        }
-        else{
+            };
+
+            suggestionProcessor.suggestText(newSuggestion,rate);
+
+            return suggestionProcessor;
+        } else {
             System.out.println("Incorrect param.");
             return null;
         }
     }
 
     @Override
-    public List<GuestSuggestionEntity> findAll(){
+    public List<GuestSuggestionEntity> findAll() {
         return guestSuggestionRepository.findAll();
     }
 }

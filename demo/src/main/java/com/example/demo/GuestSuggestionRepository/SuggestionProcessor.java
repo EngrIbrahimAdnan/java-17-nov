@@ -1,9 +1,7 @@
 package com.example.demo.GuestSuggestionRepository;
 
-public class SuggestionProcessor {
+public interface SuggestionProcessor {
 
     //store suggestions
-    private void suggestText(String text){
-
-    }
+    void suggestText(String suggestion, String rate);
 }

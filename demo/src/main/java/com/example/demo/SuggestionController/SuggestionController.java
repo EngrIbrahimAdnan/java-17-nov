@@ -1,6 +1,7 @@
 package com.example.demo.SuggestionController;
 
 import com.example.demo.GuestSuggestionEntity.GuestSuggestionEntity;
+import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
 import com.example.demo.Service.GuestSuggestionService;
 import com.example.demo.bo.CreateSuggestionRequest;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class SuggestionController {
 
     @PostMapping("/suggestion")
     public ResponseEntity<String> printAndProcessSuggestion(@RequestBody(required = false)CreateSuggestionRequest newRequest) {
-        GuestSuggestionEntity response = guestSuggestionService.addSuggestion(newRequest.getSuggestion(), newRequest.getRate());
+        SuggestionProcessor response = guestSuggestionService.addSuggestion(newRequest.getSuggestion(), newRequest.getRate());
 
         // Check if the response is not null (indicating a successful creation)
         if (response != null) {
