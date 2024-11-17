@@ -1,6 +1,7 @@
 package com.example.demo.GuestSuggestionRepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,10 +10,10 @@ import javax.persistence.Table;
 
 
 //@Entity
-//@Table(name = "JWT_user_entity")
-//extends JpaRepository
-public interface GuestSuggestionRepository  {
+//@Table(name = "New-Table")
 
-}
+//@Repository
+//public interface GuestSuggestionRepository extends JpaRepository<String, Long> {
+//}
 
 
