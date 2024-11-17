@@ -6,6 +6,8 @@ import com.example.demo.GuestSuggestionRepository.GuestSuggestionRepository;
 import com.example.demo.GuestSuggestionRepository.SuggestionProcessor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GuestSuggestionServiceImp implements GuestSuggestionService{
     private final GuestSuggestionRepository guestSuggestionRepository;
@@ -30,5 +32,10 @@ public class GuestSuggestionServiceImp implements GuestSuggestionService{
             System.out.println("Incorrect param.");
             return null;
         }
+    }
+
+    @Override
+    public List<GuestSuggestionEntity> findAll(){
+        return guestSuggestionRepository.findAll();
     }
 }
