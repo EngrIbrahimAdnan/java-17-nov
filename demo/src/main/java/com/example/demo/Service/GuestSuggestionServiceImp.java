@@ -26,13 +26,13 @@ public class GuestSuggestionServiceImp implements GuestSuggestionService {
                 guestSuggestionEntity.setSuggestionText(lambdaSuggestion);
                 guestSuggestionEntity.setRate(lambdaRate);
 
-                guestSuggestionEntity = guestSuggestionRepository.save(guestSuggestionEntity);
+                guestSuggestionRepository.save(guestSuggestionEntity);
 
             };
 
             suggestionProcessor.suggestText(newSuggestion,rate);
-
             return suggestionProcessor;
+
         } else {
             System.out.println("Incorrect param.");
             return null;
